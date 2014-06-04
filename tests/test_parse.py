@@ -3,7 +3,7 @@ import unittest
 
 class TestParse(unittest.TestCase):
     def setUp(self):
-        from pypnm.parse import parse
+        from pypnm.parser import parse
         import numpy
 
         self.target_func = parse

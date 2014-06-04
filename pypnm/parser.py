@@ -54,10 +54,10 @@ class TemplateMode(object):
         if color_num == 1:
             array = numpy.empty(( self.height, self.width))
         else:
-            array = numpy.empty(( color_num,self.height, self.width))
+            array = numpy.empty(( color_num, self.height, self.width))
         for y in range(self.height):
             for x in range(self.width):
-                if color_num  == 1:
+                if color_num == 1:
                     try:
                         array[y][x] = next(iterator)
                     except StopIteration:
@@ -82,7 +82,7 @@ class TemplateMode(object):
             raise InvalidFormat('less data size')
 
 
-class ModeP1(TemplateMode):
+class ParserP1(TemplateMode):
     is_binary_input = False
     pixcel_function = lambda self, i: 255 * i  # input data is {0,1} convert to 8bit world
 
@@ -92,7 +92,7 @@ class ModeP1(TemplateMode):
         return self._parse_rect(it)
 
 
-class ModeP2(TemplateMode):
+class ParserP2(TemplateMode):
     is_binary_input = False
 
     def _parse(self, it):
@@ -100,36 +100,36 @@ class ModeP2(TemplateMode):
         return self._parse_rect(it)
 
 
-class ModeP3(TemplateMode):
+class ParserP3(TemplateMode):
     is_binary_input = False
 
     def _parse(self, it):
         self.max_pixel_value = next(it)
-        return self._parse_rect(it,3)
+        return self._parse_rect(it, 3)
 
 
-class ModeP4(ModeP1):
+class ParserP4(ParserP1):
     is_binary_input = True
     pass
 
 
-class ModeP5(ModeP2):
+class ParserP5(ParserP2):
     is_binary_input = True
     pass
 
 
-class ModeP6(ModeP3):
+class ParserP6(ParserP3):
     is_binary_input = True
     pass
 
 
 supported_format = {
-    'P1': ModeP1,
-    'P2': ModeP2,
-    'P3': ModeP3,
-    # 'P4': ModeP4,
-    # 'P5': ModeP5,
-    # 'P6': ModeP6,
+    'P1': ParserP1,
+    'P2': ParserP2,
+    'P3': ParserP3,
+    # 'P4': ParserP4,
+    # 'P5': ParserP5,
+    # 'P6': ParserP6,
 }
 
 
@@ -146,7 +146,7 @@ def _gen_iter(idata):
     yield data
 
 
-def parse(string):
+def parse2array(string):
     data = ' '.join([x[:x.find('#')] if '#' in x else x for x in string.splitlines()])
     i = _gen_iter(data)
     try:
@@ -155,7 +155,7 @@ def parse(string):
         height = next(i)
     except IndexError:
         raise InvalidFormat('format or width or height is not exists')
-    data
+    
     if width and width.isdigit() and height and height.isdigit():
         width = int(width)
         height = int(height)
