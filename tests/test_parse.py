@@ -3,10 +3,10 @@ import unittest
 
 class TestParse(unittest.TestCase):
     def setUp(self):
-        from pypnm.parser import parse
+        from pypnm.parser import parse2array
         import numpy
 
-        self.target_func = parse
+        self.target_func = parse2array
         self.numpy = numpy
 
     def test_p1(self):
